@@ -1,0 +1,119 @@
+import java.util.Scanner;
+
+class Employee
+{
+    String name;
+    int age;
+
+    void create(Scanner sc)
+    {
+        System.out.println("Enter your Name:");
+        name = sc.nextLine();
+
+        System.out.println("Enter your Age:");
+        age = sc.nextInt();
+        sc.nextLine();
+
+        System.out.println("Do you want to create this employee? (y/n)");
+        String choice = sc.nextLine();
+
+        if (choice.equalsIgnoreCase("y"))
+        {
+            System.out.println("Employee created successfully!");
+        }
+        else
+        {
+            System.out.println("Employee not created.");
+            name = "";
+            age = 0;
+        }
+    }
+
+    void display()
+    {
+        System.out.println("Name : " + name);
+        System.out.println("Age  : " + age);
+    }
+}
+
+public class Inher
+{
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+
+        Employee[] emp = new Employee[10];
+
+        int count = 0;
+        int choice;
+
+        do
+        {
+            System.out.println("\n===== EMPLOYEE MANAGEMENT SYSTEM =====");
+            System.out.println("1) Create");
+            System.out.println("2) Display");
+            System.out.println("3) Exit");
+            System.out.println("Enter your choice:");
+
+            choice = sc.nextInt();
+            sc.nextLine();
+
+            switch (choice)
+            {
+                case 1:
+
+                    String again;
+
+                    do
+                    {
+                        Employee e = new Employee();
+
+                        e.create(sc);
+
+                        if (!e.name.equals(""))
+                        {
+                            emp[count] = e;
+                            count++;
+                        }
+
+                        System.out.println("\nDo you want to add another employee? (y/n)");
+                        again = sc.nextLine();
+
+                    } while (again.equalsIgnoreCase("y"));
+
+                    break;
+
+                case 2:
+
+                    if (count == 0)
+                    {
+                        System.out.println("No employee record found.");
+                    }
+                    else
+                    {
+                        System.out.println("\n===== EMPLOYEE DETAILS =====");
+
+                        for (int i = 0; i < count; i++)
+                        {
+                            System.out.println("\nEmployee " + (i + 1));
+                            emp[i].display();
+                        }
+                    }
+
+                    break;
+
+                case 3:
+
+                    System.out.println("Exiting program...");
+                    break;
+
+                default:
+
+                    System.out.println("Invalid choice!");
+            }
+
+        } while (choice != 3);
+
+        sc.close();
+    }
+}
